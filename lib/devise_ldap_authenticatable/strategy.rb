@@ -9,7 +9,7 @@ module Devise
         if resource && validate(resource) { resource.valid_ldap_authentication?(password) }
           resource.after_ldap_authentication
           success!(resource)
-        elsif ::Devise.ldap_database_authenticatable_fallback && validate(resource){ encrypted = true; resource.valid_password?(password) }
+        elsif resource.devise_modules.include?(:database_authenticatable) && validate(resource){ encrypted = true; resource.valid_password?(password) }
           resource.after_database_authentication
           success!(resource)
         else
