@@ -13,7 +13,7 @@ module DeviseLdapAuthenticatable
     end
 
     def create_default_devise_settings
-      inject_into_file "config/initializers/devise.rb", default_devise_settings, :after => "Devise.setup do |config|\n"   
+      inject_into_file "config/initializers/devise.rb", default_devise_settings, :after => "Devise.setup do |config|\n"
     end
 
     def update_user_model
@@ -28,7 +28,7 @@ module DeviseLdapAuthenticatable
 
     def default_devise_settings
       settings = <<-eof
-  # ==> LDAP Configuration 
+  # ==> LDAP Configuration
   # config.ldap_logger = true
   # config.ldap_create_user = false
   # config.ldap_update_password = true
@@ -38,10 +38,11 @@ module DeviseLdapAuthenticatable
   # config.ldap_check_attributes = false
   # config.ldap_use_admin_to_bind = false
   # config.ldap_ad_group_check = false
+  # config.ldap_database_authenticatable_fallback = false
 
       eof
-      if options.advanced?  
-        settings << <<-eof  
+      if options.advanced?
+        settings << <<-eof
   # ==> Advanced LDAP Configuration
   # config.ldap_auth_username_builder = Proc.new() {|attribute, login, ldap| "\#{attribute}=\#{login},\#{ldap.base}" }
 
