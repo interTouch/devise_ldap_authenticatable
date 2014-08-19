@@ -10,7 +10,7 @@ module Devise
           resource.update_database_password!(password) if ::Devise.ldap_update_local_database_password
           resource.after_ldap_authentication
           success!(resource)
-        elsif resource.devise_modules.include?(:database_authenticatable) && validate(resource){ encrypted = true; resource.valid_password?(password) }
+        elsif resource && resource.devise_modules.include?(:database_authenticatable) && validate(resource){ encrypted = true; resource.valid_password?(password) }
           resource.after_database_authentication
           success!(resource)
         else
