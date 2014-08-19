@@ -7,6 +7,7 @@ module Devise
         resource = mapping.to.find_for_ldap_authentication(authentication_hash.merge(password: password))
 
         if resource && validate(resource) { resource.valid_ldap_authentication?(password) }
+          resource.update_database_password!(password) if ::Devise.ldap_update_local_database_password
           resource.after_ldap_authentication
           success!(resource)
         elsif resource.devise_modules.include?(:database_authenticatable) && validate(resource){ encrypted = true; resource.valid_password?(password) }

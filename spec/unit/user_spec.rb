@@ -53,7 +53,7 @@ describe 'Users' do
 
       it "should not allow to change password if setting is false" do
         should_be_validated @user, "secret"
-        ::Devise.ldap_update_password = false
+        ::Devise.ldap_update_ldap_password = false
         @user.reset_password!("wrong_secret", "wrong_secret")
         should_not_be_validated @user, "wrong_secret"
         should_be_validated @user, "secret"
@@ -140,25 +140,25 @@ describe 'Users' do
         should_not_be_validated @user, "secret"
       end
     end
-    
+
     describe "check group membership" do
       before do
         @admin = Factory.create(:admin)
         @user = Factory.create(:user)
       end
-      
+
       it "should return true for admin being in the admins group" do
         assert_equal true, @admin.in_ldap_group?('cn=admins,ou=groups,dc=test,dc=com')
       end
-      
+
       it "should return false for admin being in the admins group using the 'foobar' group attribute" do
         assert_equal false, @admin.in_ldap_group?('cn=admins,ou=groups,dc=test,dc=com', 'foobar')
       end
-      
+
       it "should return true for user being in the users group" do
         assert_equal true, @user.in_ldap_group?('cn=users,ou=groups,dc=test,dc=com')
-      end   
-      
+      end
+
       it "should return false for user being in the admins group" do
         assert_equal false, @user.in_ldap_group?('cn=admins,ou=groups,dc=test,dc=com')
       end

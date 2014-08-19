@@ -46,7 +46,7 @@ end
 def default_devise_settings!
   ::Devise.ldap_logger = true
   ::Devise.ldap_create_user = false
-  ::Devise.ldap_update_password = true
+  ::Devise.ldap_update_ldap_password = true
   ::Devise.ldap_config = "#{Rails.root}/config/#{"ssl_" if ENV["LDAP_SSL"]}ldap.yml"
   ::Devise.ldap_check_group_membership = false
   ::Devise.ldap_check_attributes = false

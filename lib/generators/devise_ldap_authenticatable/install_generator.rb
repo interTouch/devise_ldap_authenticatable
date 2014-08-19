@@ -31,7 +31,7 @@ module DeviseLdapAuthenticatable
   # ==> LDAP Configuration
   # config.ldap_logger = true
   # config.ldap_create_user = false
-  # config.ldap_update_password = true
+  # config.ldap_update_ldap_password = true
   # config.ldap_config = "\#{Rails.root}/config/ldap.yml"
   # config.ldap_check_group_membership = false
   # config.ldap_check_group_membership_without_admin = false

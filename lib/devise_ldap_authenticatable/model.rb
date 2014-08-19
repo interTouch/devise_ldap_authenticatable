@@ -27,19 +27,24 @@ module Devise
 
         Devise::LDAP::Adapter.update_own_password(login_with, @password, current_password)
       end
-      
+
       def reset_password!(new_password, new_password_confirmation)
-        if new_password == new_password_confirmation && ::Devise.ldap_update_password
+        if new_password == new_password_confirmation && ::Devise.ldap_update_ldap_password
           Devise::LDAP::Adapter.update_password(login_with, new_password)
         end
         clear_reset_password_token if valid?
         save
       end
 
+      def update_database_password!(new_password)
+        self.password = new_password
+        self.save if self.changed?
+      end
+
       def password=(new_password)
         @password = new_password
         if defined?(password_digest) && @password.present? && respond_to?(:encrypted_password=)
-          self.encrypted_password = password_digest(@password) 
+          self.encrypted_password = password_digest(@password)
         end
       end
 
