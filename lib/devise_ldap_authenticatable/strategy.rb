@@ -16,8 +16,6 @@ module Devise
         else
           return fail(:invalid)
         end
-
-
       end
     end
   end
