@@ -77,6 +77,10 @@ module Devise
         end
       end
 
+      def ldap_authenticatable?
+        true
+      end
+
       #
       # callbacks
       #
